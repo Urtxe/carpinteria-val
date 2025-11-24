@@ -42,11 +42,12 @@ nav ul {
 
 nav li a {
     display: block;
-    padding: 15px 8px;
+    padding: 15px 25px;
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: background 0.3s;
+    font-size: 16px;
 }
 
 nav li a:hover, nav li a.active {
@@ -243,6 +244,22 @@ footer {
         bottom: 20px;
         right: 20px;
     }
-
 }
 
+/* --- REGLAS SOLO PARA MÓVIL (Pantallas de menos de 600px) --- */
+@media only screen and (max-width: 600px) {
+    
+    /* 1. Obligamos a que entren todos en una línea */
+    nav ul {
+        display: flex;
+        flex-wrap: nowrap;       /* ¡Prohibido bajar de línea! */
+        justify-content: center; /* Centrados en la pantalla */
+        width: 100%;             /* Que ocupe todo el ancho */
+    }
+
+    /* 2. Reducimos el espacio y la letra SOLO en el móvil */
+    nav li a {
+        padding: 15px 10px;      /* Bajamos de 25px a 10px para que quepan */
+        font-size: 13px;         /* Letra un poco más pequeña */
+    }
+}
