@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Val - Carpintería y Muebles a Medida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-banner">
+            <img src="img/portada.png" alt="Carpintería portada">
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#" data-target="inicio" class="active">Inicio</a></li>
+                <li><a href="#" data-target="servicios">Servicios</a></li>
+                <li><a href="#" data-target="trabajos">Trabajos</a></li>
+                <li><a href="#" data-target="contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="content-section active">
+            <h2>Bienvenidos a nuestra Carpintería</h2>
+            <p>Somos especialistas en madera con más de 20 años de experiencia. Transformamos tus ideas en muebles únicos y funcionales.</p>
+            <p>Trabajamos con pasión por el detalle, desde pequeñas reparaciones hasta grandes reformas de interiorismo.</p>
+        </section>
+
+        <section id="servicios" class="content-section">
+            <h2>Nuestros Servicios</h2>
+            
+            <div class="servicio-item">
+                <h3>Muebles a Medida</h3>
+                <p>Diseño y fabricación personalizada para salones, dormitorios y oficinas.</p>
+                <p><strong>Materiales:</strong> Roble, Haya, Nogal y melaminas de alta resistencia.</p>
+            </div>
+
+            <div class="servicio-item">
+                <h3>Armarios Empotrados</h3>
+                <p>Aprovechamos cada milímetro de tu espacio con interiores prácticos y puertas de diseño.</p>
+            </div>
+
+            <div class="servicio-item">
+                <h3>Suelos y Parquet</h3>
+                <p>Instalación de tarima flotante, suelos vinílicos y restauración de parquet.</p>
+                <p><strong>Colaboradores:</strong> Quick-Step, Finsa.</p>
+            </div>
+        </section>
+
+        <section id="trabajos" class="content-section">
+            <h2>Nuestros Proyectos</h2>
+            <p>Haz clic en las imágenes para verlas en grande.</p>
+
+            <div class="gallery">
+                <img src="img/armarios.jpg" alt="empotrados a medida" class="zoomable">
+                <img src="img/corredera-cocina.jpg" alt="puertas correderas cocina" class="zoomable">
+                <img src="img/puertas.jpg" alt="puertas" class="zoomable">
+                <img src="img/puertas2.jpg" alt="puertas detalle" class="zoomable">
+                <img src="img/suelo-zocalo.jpg" alt="suelo y zócalo" class="zoomable">
+                <img src="img/suelo-zocalo2.jpg" alt="suelo detalle" class="zoomable">
+                <img src="img/general.jpg" alt="pasillo" class="zoomable">
+            </div>
+        </section>
+
+        <section id="contacto" class="content-section">
+            <h2>Contacta con Nosotros</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>¿Dónde estamos?</h3>
+                    <p><strong>Dirección:</strong> Egia Kalea,16; Donostia; 20012</p>
+                    <p><strong>Teléfono:</strong> 667 690 873</p>
+                    <p><strong>Email:</strong> carpinteriaval@gmail.com</p>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <h3>Envíanos tu consulta</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Tu Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="asunto">Asunto:</label>
+                            <input type="text" id="asunto" name="asunto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                    <div id="form-status"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Carpintería Val. Todos los derechos reservados. Developed by <strong>Mikel Urtxegi</strong></p>
+    </footer>
+
+    <a href="https://wa.me/34667690873?text=Hola%20Alex%20Val,%20he%20visto%20vuestra%20web%20y%20me%20gustaría%20más%20información." class="whatsapp-btn" target="_blank" title="Contactar por WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="white">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487 2.982 1.288 2.982.858 3.526.808.544-.05 1.758-.718 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+    </a>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
