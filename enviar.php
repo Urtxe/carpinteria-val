@@ -17,7 +17,7 @@ $mi_gmail = "mikelurtxegi@gmail.com";
 
 // 2. Tu CONTRASEÑA DE APLICACIÓN de 16 letras
 // (La que generaste en Google: abcd efgh ijkl mnop)
-$mi_password_app = "hhzp rage oojl lrpn"; 
+$mi_password_app = "secreta"; 
 
 // 3. ¿Dónde quieres recibir los avisos? 
 // (Puede ser el mismo gmail u otro, ej: info@tuempresa.com)
@@ -73,4 +73,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "error";
 }
+
 ?>
