@@ -510,10 +510,38 @@
       ><span>WhatsApp</span></a
     >
     <dialog id="image-modal" aria-label="Fotografía del trabajo ampliada">
-      <button class="modal-close" type="button" aria-label="Cerrar fotografía">
-        ×</button
-      ><img id="modal-image" alt="" />
+      <div class="modal-toolbar">
+        <div
+          class="modal-controls"
+          role="group"
+          aria-label="Zoom de la fotografía"
+        >
+          <button id="zoom-out" type="button" aria-label="Alejar fotografía">
+            −
+          </button>
+          <button id="zoom-reset" type="button" aria-label="Restablecer zoom">
+            100%
+          </button>
+          <button id="zoom-in" type="button" aria-label="Acercar fotografía">
+            +
+          </button>
+        </div>
+        <button
+          class="modal-close"
+          type="button"
+          aria-label="Cerrar fotografía"
+        >
+          ×
+        </button>
+      </div>
+      <div class="image-viewport">
+        <img id="modal-image" alt="" draggable="false" />
+      </div>
       <p id="modal-caption"></p>
+      <p class="zoom-help">
+        Rueda o dos dedos para ampliar · Arrastra para explorar · Doble clic
+        para acercar
+      </p>
     </dialog>
   </body>
 </html>
