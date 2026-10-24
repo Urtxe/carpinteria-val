@@ -101,12 +101,47 @@ nav a[aria-current] {
   color: var(--wood);
 }
 .header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
 }
-.header-phone span {
-  margin-left: 12px;
+.icon-definitions {
+  position: absolute;
+  overflow: hidden;
+}
+.icon {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cover-banner {
+  aspect-ratio: 3.5;
+  margin-top: 30px;
+  overflow: hidden;
+}
+.cover-banner .cover-image {
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+.cover-crop {
+  overflow: hidden;
+}
+/* El encuadre descarta el borde derecho de la portada en ambas apariciones. */
+.cover-banner .cover-image,
+.cover-crop .cover-image {
+  width: 108%;
+  max-width: none;
 }
 .hero {
   display: grid;
@@ -187,7 +222,7 @@ em {
   border-bottom: 1px solid var(--wood);
   padding-bottom: 5px;
 }
-.text-link span {
+.text-link .icon {
   margin-left: 14px;
 }
 .hero-note {
@@ -314,7 +349,9 @@ h2 {
   font-size: 11px;
   text-underline-offset: 5px;
 }
-.service > a span {
+.service > a .icon {
+  width: 17px;
+  height: 17px;
   margin-left: 5px;
 }
 .projects-section {
@@ -492,6 +529,10 @@ h2 {
 .whatsapp-btn:hover {
   background: #174c31;
 }
+.whatsapp-btn .icon {
+  width: 25px;
+  height: 25px;
+}
 body:has(dialog[open]) {
   overflow: hidden;
 }
@@ -593,6 +634,10 @@ dialog p {
   }
 }
 @media (max-width: 640px) {
+  .cover-banner {
+    aspect-ratio: 2.2;
+    margin-top: 20px;
+  }
   html {
     scroll-padding-top: 118px;
   }
