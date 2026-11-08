@@ -154,6 +154,51 @@ for (const eventName of ["pointerup", "pointercancel", "lostpointercapture"]) {
   );
 }
 
+const contactForm = document.querySelector("#contact-form");
+if (contactForm) {
+  const contactEmail = document.querySelector("#contact-email");
+  const contactStatus = contactForm.querySelector(".form-status");
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const fields = new FormData(contactForm);
+    const name = fields.get("nombre").trim();
+    const message = fields.get("mensaje").trim();
+    const topic = fields.get("trabajo");
+    contactStatus.textContent = "";
+
+    if (!name || !message) {
+      contactStatus.textContent =
+        "Escribe tu nombre y unas palabras sobre el trabajo.";
+      contactForm.elements.namedItem(name ? "mensaje" : "nombre").focus();
+      return;
+    }
+
+    const subject = topic
+      ? `Consulta de carpintería: ${topic}`
+      : "Consulta de carpintería";
+    const topicLine = topic ? `Tipo de trabajo: ${topic}\n\n` : "";
+    const body = `Hola, soy ${name}.\n\n${topicLine}${message}`;
+
+    if (event.submitter?.id === "copy-message") {
+      try {
+        await navigator.clipboard.writeText(body);
+        contactStatus.textContent = `Mensaje copiado. Pégalo en un correo a ${contactEmail.textContent.trim()}.`;
+      } catch {
+        contactStatus.textContent =
+          "Puedes seleccionar y copiar el texto del formulario manualmente.";
+      }
+      return;
+    }
+
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body.replace(/\r?\n/g, "\r\n"));
+    contactStatus.textContent = "Si el borrador no se abre, usa «Copiar mensaje».";
+    window.location.href = `${contactEmail.href}?subject=${encodedSubject}&body=${encodedBody}`;
+  });
+  contactForm.hidden = false;
+}
+
 const navLinks = document.querySelectorAll("nav a");
 const observer = new IntersectionObserver(
   (entries) => {

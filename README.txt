@@ -2,7 +2,8 @@
 
 Web estática en español: HTML, CSS y JavaScript sin framework, base de datos ni servidor PHP.
 Navegación por anclas, galería con diálogo nativo y contacto por WhatsApp, teléfono y correo.
-El envío mediante formulario queda pendiente; no se llama a enviar.php ni se utiliza PHPMailer.
+El formulario de contacto prepara un borrador en la aplicación de correo del visitante.
+También permite copiar el mensaje para enviarlo desde correo web. No requiere SMTP ni servidor PHP.
 
 ## Desarrollo
 
@@ -10,8 +11,9 @@ Desde la raíz: python -m http.server 8080
 Abrir http://localhost:8080
 Comprobación: python scripts/check_site.py
 
-El contenido y los enlaces funcionan sin JavaScript. JavaScript mejora la galería y
-destaca la sección actual. La imagen portada.webp es una copia optimizada del PNG original.
+El contenido y los enlaces funcionan sin JavaScript. JavaScript mejora la galería,
+destaca la sección actual y prepara el borrador de correo. La imagen portada.webp es
+una copia optimizada del PNG original.
 
 ## Despliegue con GitHub Actions
 
@@ -27,6 +29,6 @@ Incluye título, descripción, jerarquía de encabezados, contenido visible sin 
 textos alternativos y datos estructurados con los datos de contacto existentes.
 Cuando se confirme el dominio definitivo: configurar dominio y DNS, canonical, imagen
 social con URL absoluta, robots.txt y sitemap.xml; verificar Google Search Console.
-Las páginas individuales de servicios y el formulario quedan para una siguiente fase.
+Las páginas individuales de servicios quedan para una siguiente fase.
 
 Licencia: GNU AGPLv3 (LICENSE). Desarrollo: Mikel Urtxegi.
