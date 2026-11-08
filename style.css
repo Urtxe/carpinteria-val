@@ -485,6 +485,35 @@ h2 {
 .site-footer > .text-link {
   font-size: 13px;
 }
+.whatsapp-shortcut {
+  position: fixed;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  z-index: 11;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--paper);
+  border-radius: 4px;
+  background: #2c5d45;
+  color: white;
+}
+.whatsapp-shortcut:hover {
+  background: var(--forest);
+}
+.whatsapp-shortcut .icon {
+  width: 25px;
+  height: 25px;
+}
+.whatsapp-shortcut:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--forest);
+}
+body:has(dialog[open]) .whatsapp-shortcut {
+  visibility: hidden;
+}
 .contact-section :focus-visible,
 dialog button:focus-visible {
   outline-color: #f4c6a3;
