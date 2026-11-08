@@ -25,6 +25,10 @@ class SiteParser(HTMLParser):
             self.description = bool(attrs.get('content'))
         if tag == 'img' and attrs.get('id') != 'modal-image':
             assert attrs.get('alt'), 'Imagen sin texto alternativo'
+        if tag == 'form':
+            assert 'hidden' in attrs and 'action' not in attrs, (
+                'El formulario debe esperar a JavaScript y no tener un destino de envío'
+            )
         for key in ('src', 'href'):
             if key in attrs:
                 self.links.append(attrs[key])
@@ -45,5 +49,4 @@ for link in parser.links:
 html = (ROOT / 'index.html').read_text(encoding='utf-8')
 structured_data = html.split('<script type="application/ld+json">')[1].split('</script>')[0]
 json.loads(structured_data)
-assert '<form' not in html, 'El formulario está pendiente de activación'
 print('OK: anclas, recursos, imágenes, título principal, descripción y JSON-LD.')
