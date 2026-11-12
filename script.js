@@ -158,43 +158,63 @@ const contactForm = document.querySelector("#contact-form");
 if (contactForm) {
   const contactEmail = document.querySelector("#contact-email");
   const contactStatus = contactForm.querySelector(".form-status");
+  const submitButton = contactForm.querySelector('button[type="submit"]');
 
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (submitButton.disabled) return;
     const fields = new FormData(contactForm);
-    const name = fields.get("nombre").trim();
-    const message = fields.get("mensaje").trim();
+    const name = fields.get("name").trim();
+    const message = fields.get("message").trim();
     const topic = fields.get("trabajo");
     contactStatus.textContent = "";
 
     if (!name || !message) {
       contactStatus.textContent =
         "Escribe tu nombre y unas palabras sobre el trabajo.";
-      contactForm.elements.namedItem(name ? "mensaje" : "nombre").focus();
+      contactForm.elements.namedItem(name ? "message" : "name").focus();
       return;
     }
 
-    const subject = topic
-      ? `Consulta de carpintería: ${topic}`
-      : "Consulta de carpintería";
-    const topicLine = topic ? `Tipo de trabajo: ${topic}\n\n` : "";
-    const body = `Hola, soy ${name}.\n\n${topicLine}${message}`;
-
-    if (event.submitter?.id === "copy-message") {
-      try {
-        await navigator.clipboard.writeText(body);
-        contactStatus.textContent = `Mensaje copiado. Pégalo en un correo a ${contactEmail.textContent.trim()}.`;
-      } catch {
-        contactStatus.textContent =
-          "Puedes seleccionar y copiar el texto del formulario manualmente.";
-      }
+    if (!fields.get("h-captcha-response")) {
+      contactStatus.textContent =
+        "Completa la verificación antispam. Si no aparece, recarga la página o escríbenos por correo.";
       return;
     }
 
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedBody = encodeURIComponent(body.replace(/\r?\n/g, "\r\n"));
-    contactStatus.textContent = "Si el borrador no se abre, usa «Copiar mensaje».";
-    window.location.href = `${contactEmail.href}?subject=${encodedSubject}&body=${encodedBody}`;
+    fields.set("name", name);
+    fields.set("email", fields.get("email").trim());
+    fields.set("message", message);
+    fields.set(
+      "subject",
+      topic ? `Consulta de carpintería: ${topic}` : "Consulta de carpintería",
+    );
+    submitButton.disabled = true;
+    submitButton.textContent = "Enviando…";
+    contactForm.setAttribute("aria-busy", "true");
+    contactStatus.textContent = "Enviando tu consulta…";
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: fields,
+        signal: AbortSignal.timeout(20000),
+      });
+      const result = await response.json();
+      if (!response.ok || result.success !== true) throw new Error("Envío rechazado");
+      contactForm.reset();
+      contactStatus.textContent =
+        "Tu consulta se ha enviado. Gracias por escribirnos.";
+    } catch {
+      contactStatus.textContent =
+        `No hemos podido confirmar el envío. Hemos conservado tu mensaje. Puedes escribirnos a ${contactEmail.textContent.trim()} o contactarnos por WhatsApp.`;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Enviar consulta";
+      contactForm.removeAttribute("aria-busy");
+      window.hcaptcha?.reset();
+    }
   });
   contactForm.hidden = false;
 }

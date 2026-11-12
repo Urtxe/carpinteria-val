@@ -26,8 +26,10 @@ class SiteParser(HTMLParser):
         if tag == 'img' and attrs.get('id') != 'modal-image':
             assert attrs.get('alt'), 'Imagen sin texto alternativo'
         if tag == 'form':
-            assert 'hidden' in attrs and 'action' not in attrs, (
-                'El formulario debe esperar a JavaScript y no tener un destino de envío'
+            assert ('hidden' in attrs
+                    and attrs.get('action') == 'https://api.web3forms.com/submit'
+                    and attrs.get('method') == 'POST'), (
+                'El formulario debe esperar a JavaScript y enviar a Web3Forms por POST'
             )
         for key in ('src', 'href'):
             if key in attrs:
