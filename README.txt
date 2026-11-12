@@ -16,6 +16,11 @@ Comprobación: python scripts/check_site.py
 El contenido y los enlaces funcionan sin JavaScript. JavaScript mejora la galería,
 destaca la sección actual y envía el formulario. La imagen portada.webp es
 una copia optimizada del PNG original.
+Las imágenes usan srcset/sizes con variantes WebP para descargar tamaños adecuados a cada pantalla;
+los enlaces de la galería conservan los JPG originales para el zoom. Las variantes se generaron con
+Pillow, redimensionado LANCZOS y WebP quality=82, method=6 (400/800 px en fotos, 800/1200 en portada).
+El captcha se carga al acercarse a 400 px del formulario o al enfocarlo y reserva su espacio para
+evitar saltos de contenido. Si falla la descarga, se puede reintentar al enfocar o enviar el formulario.
 
 ## Despliegue con GitHub Actions
 

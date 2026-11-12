@@ -25,6 +25,10 @@ class SiteParser(HTMLParser):
             self.description = bool(attrs.get('content'))
         if tag == 'img' and attrs.get('id') != 'modal-image':
             assert attrs.get('alt'), 'Imagen sin texto alternativo'
+            if 'srcset' in attrs:
+                assert attrs.get('sizes'), 'Imagen adaptable sin sizes'
+                self.links.extend(candidate.strip().split()[0]
+                                  for candidate in attrs['srcset'].split(','))
         if tag == 'form':
             assert ('hidden' in attrs
                     and attrs.get('action') == 'https://api.web3forms.com/submit'

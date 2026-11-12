@@ -457,6 +457,9 @@ h2 {
   opacity: 0.6;
   cursor: wait;
 }
+#contact-form .h-captcha {
+  min-height: 78px;
+}
 .form-status {
   margin: 0;
 }

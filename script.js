@@ -159,6 +159,29 @@ if (contactForm) {
   const contactEmail = document.querySelector("#contact-email");
   const contactStatus = contactForm.querySelector(".form-status");
   const submitButton = contactForm.querySelector('button[type="submit"]');
+  let captchaScript = null;
+
+  function loadCaptcha() {
+    if (captchaScript) return;
+    captchaScript = document.createElement("script");
+    captchaScript.src = "https://web3forms.com/client/script.js";
+    captchaScript.async = true;
+    captchaScript.addEventListener("error", () => {
+      captchaScript.remove();
+      captchaScript = null;
+      contactStatus.textContent =
+        "No se ha podido cargar la verificación antispam. Recarga la página o escríbenos por correo.";
+    });
+    document.body.appendChild(captchaScript);
+  }
+
+  const captchaObserver = new IntersectionObserver((entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      loadCaptcha();
+      captchaObserver.disconnect();
+    }
+  }, { rootMargin: "400px" });
+  contactForm.addEventListener("focusin", loadCaptcha);
 
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -177,6 +200,7 @@ if (contactForm) {
     }
 
     if (!fields.get("h-captcha-response")) {
+      loadCaptcha();
       contactStatus.textContent =
         "Completa la verificación antispam. Si no aparece, recarga la página o escríbenos por correo.";
       return;
@@ -217,6 +241,7 @@ if (contactForm) {
     }
   });
   contactForm.hidden = false;
+  captchaObserver.observe(contactForm);
 }
 
 const navLinks = document.querySelectorAll("nav a");
