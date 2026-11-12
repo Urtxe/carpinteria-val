@@ -9,9 +9,15 @@ async (page) => {
   let requests = 0;
   let body = "";
   let release;
-  await page.route("https://web3forms.com/client/script.js", (route) => route.fulfill({
-    contentType: "application/javascript", body: "",
-  }));
+  let captchaRequests = 0;
+  let captchaUnavailable = false;
+  await page.route("https://web3forms.com/client/script.js", (route) => {
+    captchaRequests++;
+    if (captchaUnavailable) return route.abort();
+    return route.fulfill({
+      contentType: "application/javascript", body: "window.testCaptchaLoaded = true;",
+    });
+  });
   await page.route("https://api.web3forms.com/submit", async (route) => {
     requests++;
     body = route.request().postData();
@@ -24,7 +30,15 @@ async (page) => {
     });
   });
   try {
-    await page.reload();
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.evaluate(() => {
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    });
+    await page.goto(new URL("/", page.url()).href);
+    await page.evaluate(() => new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    assert(captchaRequests === 0, "El captcha no debe descargarse al entrar en la portada");
     const form = page.locator("#contact-form");
     const submit = form.getByRole("button", { name: "Enviar consulta" });
     const status = form.getByRole("status");
@@ -32,6 +46,8 @@ async (page) => {
     await form.locator('[name="name"]').fill("Prueba local");
     await form.locator('[name="email"]').fill("prueba@example.com");
     await message.fill("Consulta de prueba que debe conservarse si falla.");
+    await page.waitForFunction(() => window.testCaptchaLoaded === true);
+    assert(captchaRequests === 1, "El captcha debe cargarse una sola vez al acercarse al formulario");
     await submit.click();
     assert(requests === 0, "No debe enviar sin captcha");
     assert((await status.innerText()).includes("verificación antispam"), "Debe explicar el captcha pendiente");
@@ -71,10 +87,23 @@ async (page) => {
     assert(body.includes("3f1d53c6-5d46-40cc-addd-124b2f61d5b9"), "Debe usar la clave configurada");
     await page.setViewportSize({ width: 390, height: 844 });
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "No debe desbordar en móvil");
-    return "OK: captcha, errores HTTP/red/JSON, conservación, bloqueo de duplicados, envío y móvil.";
+    captchaUnavailable = true;
+    await page.reload();
+    await form.locator('[name="name"]').fill("Prueba de conexión");
+    await page.waitForFunction(() => document.querySelector('.form-status').textContent.includes("No se ha podido cargar"));
+    const attemptsAfterFailure = captchaRequests;
+    captchaUnavailable = false;
+    await form.locator('[name="email"]').focus();
+    await page.waitForFunction(() => window.testCaptchaLoaded === true);
+    assert(captchaRequests > attemptsAfterFailure, "Debe poder reintentar la carga tras un fallo de conexión");
+    const attemptsBeforeDirectLink = captchaRequests;
+    await page.goto(new URL("/?captcha-anchor#contacto", page.url()).href);
+    await page.waitForFunction(() => window.testCaptchaLoaded === true);
+    assert(captchaRequests === attemptsBeforeDirectLink + 1, "El captcha debe cargar también al entrar directamente al contacto");
+    return "OK: carga diferida, reintento y enlace directo al captcha, errores HTTP/red/JSON, conservación, duplicados, envío y móvil.";
   } finally {
     await page.unroute("https://web3forms.com/client/script.js");
     await page.unroute("https://api.web3forms.com/submit");
-    await page.reload();
+    await page.goto(new URL("/", page.url()).href);
   }
 }
