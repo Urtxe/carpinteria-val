@@ -453,15 +453,9 @@ h2 {
 #contact-form textarea {
   resize: vertical;
 }
-#copy-message {
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: #e6bd9b;
-  cursor: pointer;
+#contact-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 .form-status {
   margin: 0;

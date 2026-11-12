@@ -27,7 +27,7 @@ jobs:
       - name: Preparar únicamente los archivos públicos
         run: |
           mkdir _site
-          cp index.html style.css script.js LICENSE _site/
+          cp index.html style.css script.js robots.txt sitemap.xml LICENSE _site/
           cp -r img _site/
           rm _site/img/portada.png
           touch _site/.nojekyll
