@@ -55,7 +55,8 @@ tras abrir la web local en una sesión Chromium (el script intercepta Web3Forms)
 Incluye título, descripción, jerarquía de encabezados, contenido visible sin JavaScript,
 textos alternativos y datos estructurados con los datos de contacto existentes.
 Incluye canonical, imagen social con URL absoluta, robots.txt y sitemap.xml del dominio definitivo.
-Tras activar el dominio: verificar Google Search Console y enviar sitemap.xml.
-Las páginas individuales de servicios quedan para una siguiente fase.
+Las páginas de muebles, armarios, puertas y suelos enlazan desde la portada y están incluidas
+en sitemap.xml. Tras publicar cambios, enviar el sitemap actualizado en Search Console y solicitar
+la indexación de cada URL nueva.
 
 Licencia: GNU AGPLv3 (LICENSE). Desarrollo: Mikel Urtxegi.

@@ -272,6 +272,15 @@ h2 {
   font-size: clamp(21px, 2.2vw, 30px);
   line-height: 1.15;
 }
+.service-title-link {
+  color: inherit;
+  text-decoration-color: transparent;
+  text-underline-offset: 5px;
+}
+.service-title-link:hover {
+  color: var(--wood);
+  text-decoration-color: currentColor;
+}
 .services-list dd {
   margin: 0;
   color: var(--muted);
@@ -482,6 +491,94 @@ h2 {
 .site-footer > .text-link {
   font-size: 13px;
 }
+.breadcrumb {
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.breadcrumb a {
+  text-underline-offset: 4px;
+}
+.service-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 84px);
+  padding-block: clamp(28px, 5vw, 72px) clamp(54px, 7vw, 96px);
+}
+.service-hero h1 {
+  max-width: 16ch;
+  margin-bottom: 22px;
+  font-size: clamp(43px, 5.2vw, 72px);
+}
+.service-lead {
+  max-width: 58ch;
+  color: var(--muted);
+  font-size: clamp(18px, 1.8vw, 22px);
+}
+.service-hero .actions {
+  margin-top: 26px;
+}
+.service-photo {
+  margin: 0;
+}
+.service-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.service-photo figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.service-detail {
+  border-block: 1px solid var(--line);
+  background: #e9dfcf;
+}
+.service-detail .wrap,
+.related-services {
+  padding-block: clamp(48px, 6vw, 82px);
+}
+.service-detail h2,
+.related-services h2 {
+  margin-bottom: 20px;
+  font-size: clamp(32px, 4vw, 48px);
+}
+.service-detail p {
+  max-width: 72ch;
+  color: var(--muted);
+}
+.service-detail ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 36px;
+  max-width: 900px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.service-detail li {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.related-services h2 {
+  margin-bottom: 26px;
+}
+.related-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.related-services-grid a {
+  padding: 16px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+}
+.related-services-grid a:hover {
+  border-color: var(--wood);
+  color: var(--wood);
+}
 .whatsapp-shortcut {
   position: fixed;
   right: max(14px, env(safe-area-inset-right));
@@ -627,6 +724,15 @@ dialog .zoom-help {
   .gallery {
     gap: 24px 16px;
   }
+  .service-hero {
+    grid-template-columns: 1fr;
+  }
+  .service-photo {
+    order: -1;
+  }
+  .related-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (max-width: 640px) {
   html {
@@ -679,6 +785,9 @@ dialog .zoom-help {
     grid-template-columns: 1fr;
     gap: 7px;
     padding-block: 14px;
+  }
+  .service-detail ul {
+    grid-template-columns: 1fr;
   }
   .section-heading {
     margin-bottom: 24px;
